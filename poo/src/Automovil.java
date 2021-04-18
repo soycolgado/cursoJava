@@ -3,18 +3,23 @@ public class Automovil {
     private int id;
     private String fabricante;
     private String modelo;
-    private String color = "gris";
+    private Color color = Color.GRIS;
     private double cilindrada;
     private int capacidadEstanque = 40;
 
     private static String colorPatente = "Naranja";
     private static int capacidadEstanqueEstatico = 30;
     private static int ultimoId;
+    public final static String COLOR_ROJO = "Rojo";
+    public final static String COLOR_AMARILLO = "Amarillo";
+    public final static String COLOR_AZUL = "Azul";
+    public final static String COLOR_BLANCO = "Blanco";
+    public final static String COLOR_GRIS = "Gris Oscuro";
 
     public static final Integer VELOCIDAD_MAX_CARRETERA = 120;
     public static final Integer VELOCIDAD_MAX_CIUDAD = 60;
 
-    public Automovil(String fabricante, String modelo, String color){
+    public Automovil(String fabricante, String modelo, Color color){
         this(fabricante, modelo);
         this.color = color;
     }
@@ -33,12 +38,12 @@ public class Automovil {
         this.modelo = modelo;
     }
 
-    public Automovil(String fabricante, String modelo, String color, double cilindrada) {
+    public Automovil(String fabricante, String modelo, Color color, double cilindrada) {
         this(fabricante, modelo, color);
         this.cilindrada = cilindrada;
     }
 
-    public Automovil(String fabricante, String modelo, String color, double cilindrada, int capacidadEstanque) {
+    public Automovil(String fabricante, String modelo, Color color, double cilindrada, int capacidadEstanque) {
         this(fabricante, modelo, color, cilindrada);
         this.capacidadEstanque = capacidadEstanque;
     }
@@ -63,11 +68,11 @@ public class Automovil {
         this.modelo = modelo;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -93,7 +98,7 @@ public class Automovil {
         sb.append("auto.id = " + this.id);
         sb.append("\nauto.fabricante = " + this.fabricante);
         sb.append("\nthis.modelo = " + this.modelo);
-        sb.append("\nthis.color = " + this.color);
+        sb.append("\nthis.color = " + this.color.getColor());
         sb.append("\nthis.patenteColor = " + colorPatente);
         sb.append("\nthis.cilindrada = " + this.cilindrada);
 
@@ -164,7 +169,7 @@ public class Automovil {
         return "Automovil{" +
                 "fabricante='" + fabricante + '\'' +
                 ", modelo='" + modelo + '\'' +
-                ", color='" + color + '\'' +
+                ", color='" + this.color.getColor() + '\'' +
                 ", cilindrada=" + cilindrada +
                 ", capacidadEstanque=" + capacidadEstanque +
                 '}';
