@@ -4,6 +4,6 @@ import org.nestorbardel.poointerfaces.modelo.Cliente;
 
 import java.util.List;
 
-public interface OrdenableRepositorio {
-    public List<Cliente> listar(String campo, Direccion dir);
+public interface OrdenableRepositorio<T> {
+    public List<T> listar(String campo, Direccion dir);
 }

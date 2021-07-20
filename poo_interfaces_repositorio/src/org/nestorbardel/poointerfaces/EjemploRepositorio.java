@@ -2,13 +2,14 @@ package org.nestorbardel.poointerfaces;
 
 import org.nestorbardel.poointerfaces.modelo.Cliente;
 import org.nestorbardel.poointerfaces.repositorio.*;
+import org.nestorbardel.poointerfaces.repositorio.lista.ClienteListRepositorio;
 
 import java.util.List;
 
 public class EjemploRepositorio {
     public static void main(String[] args) {
 
-        CrudRepositorio repo = new ClienteListRepositorio();
+        OrdenablePaginableCrudRepositorio<Cliente> repo = new ClienteListRepositorio();
 
         repo.crear(new Cliente("Jano", "Perez"));
         repo.crear(new Cliente("Bea", "Gonzales"));
@@ -21,13 +22,13 @@ public class EjemploRepositorio {
 
         System.out.println("============= paginable ==============");
 
-        List<Cliente> paginable = ((PaginableRepositorio)repo).listar(1,3);
+        List<Cliente> paginable = repo.listar(1,3);
 
         paginable.forEach(System.out::println);
 
         System.out.println("============ ordenable ================");
 
-        List<Cliente> clientesOrdenASC = ((OrdenableRepositorio)repo).listar("nombre", Direccion.ASC);
+        List<Cliente> clientesOrdenASC = repo.listar("nombre", Direccion.ASC);
 
         clientesOrdenASC.forEach(System.out::println);
 

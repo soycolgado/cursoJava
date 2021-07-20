@@ -4,10 +4,10 @@ import org.nestorbardel.poointerfaces.modelo.Cliente;
 
 import java.util.List;
 
-public interface CrudRepositorio {
-    public List<Cliente> listar();
-    public Cliente porId(Integer id);
-    public void crear(Cliente cliente);
-    public void editar(Cliente cliente);
+public interface CrudRepositorio<T> {
+    public List<T> listar();
+    public T porId(Integer id);
+    public void crear(T cliente);
+    public void editar(T cliente);
     public void eliminar(Integer id);
 }

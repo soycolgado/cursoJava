@@ -4,6 +4,6 @@ import org.nestorbardel.poointerfaces.modelo.Cliente;
 
 import java.util.List;
 
-public interface PaginableRepositorio {
-    public List<Cliente> listar(int desde, int hasta);
+public interface PaginableRepositorio<T> {
+    public List<T> listar(int desde, int hasta);
 }
