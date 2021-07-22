@@ -4,6 +4,8 @@ import org.nestorbardel.poointerfaces.modelo.Cliente;
 import org.nestorbardel.poointerfaces.modelo.Producto;
 import org.nestorbardel.poointerfaces.repositorio.Direccion;
 import org.nestorbardel.poointerfaces.repositorio.OrdenablePaginableCrudRepositorio;
+import org.nestorbardel.poointerfaces.repositorio.excepciones.AccesoDatoException;
+import org.nestorbardel.poointerfaces.repositorio.excepciones.LecturaAccesoDatoException;
 import org.nestorbardel.poointerfaces.repositorio.lista.ClienteListRepositorio;
 import org.nestorbardel.poointerfaces.repositorio.lista.ProductoListRepositorio;
 
@@ -12,40 +14,48 @@ import java.util.List;
 public class EjemploRepositorioProducto {
     public static void main(String[] args) {
 
-        OrdenablePaginableCrudRepositorio<Producto> repo = new ProductoListRepositorio();
+        try {
+            OrdenablePaginableCrudRepositorio<Producto> repo = new ProductoListRepositorio();
 
-        repo.crear(new Producto("mesa", 50.52));
-        repo.crear(new Producto("silla", 18));
-        repo.crear(new Producto("lampara", 15.5));
-        repo.crear(new Producto("notebook", 400.89));
+            repo.crear(new Producto("mesa", 50.52));
+            repo.crear(new Producto("silla", 18));
+            repo.crear(new Producto("lampara", 15.5));
+            repo.crear(new Producto("notebook", 400.89));
 
-        List<Producto> productos = repo.listar();
+            List<Producto> productos = repo.listar();
 
-        productos.forEach(System.out::println);
+            productos.forEach(System.out::println);
 
-        System.out.println("============= paginable ==============");
+            System.out.println("============= paginable ==============");
 
-        List<Producto> paginable = repo.listar(1,3);
+            List<Producto> paginable = repo.listar(1, 3);
 
-        paginable.forEach(System.out::println);
+            paginable.forEach(System.out::println);
 
-        System.out.println("============ ordenable ================");
+            System.out.println("============ ordenable ================");
 
-        List<Producto> productosOrdenASC = repo.listar("descripcion", Direccion.ASC);
+            List<Producto> productosOrdenASC = repo.listar("descripcion", Direccion.ASC);
 
-        productosOrdenASC.forEach(System.out::println);
+            productosOrdenASC.forEach(System.out::println);
 
-        System.out.println("============== editar =============");
-        Producto lamparaActualizar = new Producto("Lampara escritorio", 23);
-        lamparaActualizar.setId(3);
-        repo.editar(lamparaActualizar);
+            System.out.println("============== editar =============");
+            Producto lamparaActualizar = new Producto("Lampara escritorio", 23);
+            lamparaActualizar.setId(3);
+            repo.editar(lamparaActualizar);
 
-        Producto lampara = repo.porId(3);
-        System.out.println(lampara);
+            Producto lampara = repo.porId(3);
+            System.out.println(lampara);
 
-        System.out.println("============== borrar =============");
+            System.out.println("============== borrar =============");
 
-        repo.eliminar(2);
-        repo.listar().forEach(System.out::println);
+            repo.eliminar(2);
+            repo.listar().forEach(System.out::println);
+        }catch(LecturaAccesoDatoException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }catch (AccesoDatoException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

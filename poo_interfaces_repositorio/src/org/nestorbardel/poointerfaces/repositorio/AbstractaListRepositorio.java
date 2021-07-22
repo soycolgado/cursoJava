@@ -2,6 +2,8 @@ package org.nestorbardel.poointerfaces.repositorio;
 
 import org.nestorbardel.poointerfaces.modelo.BaseEntity;
 import org.nestorbardel.poointerfaces.modelo.Cliente;
+import org.nestorbardel.poointerfaces.repositorio.excepciones.EscrituraAccesoDatoException;
+import org.nestorbardel.poointerfaces.repositorio.excepciones.LecturaAccesoDatoException;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -21,7 +23,10 @@ public abstract class AbstractaListRepositorio<T extends BaseEntity> implements 
     }
 
     @Override
-    public T porId(Integer id) {
+    public T porId(Integer id) throws LecturaAccesoDatoException {
+        if(id == null || id <= 0){
+            throw new LecturaAccesoDatoException("Id invalido, debe ser mayor que 0");
+        }
         T resultado = null;
 
         for(T cli: this.dataSource){
@@ -34,7 +39,14 @@ public abstract class AbstractaListRepositorio<T extends BaseEntity> implements 
     }
 
     @Override
-    public void crear(T t) {
+    public void crear(T t) throws EscrituraAccesoDatoException {
+        if(t == null){
+            throw new EscrituraAccesoDatoException("Error al insertar un objeto null");
+        }
+
+        if(dataSource.contains(t)){
+            throw new EscrituraAccesoDatoException("Error, el objecto ya existe");
+        }
         this.dataSource.add(t);
     }
 
@@ -46,7 +58,7 @@ public abstract class AbstractaListRepositorio<T extends BaseEntity> implements 
 //    }
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(Integer id) throws LecturaAccesoDatoException {
         this.dataSource.remove(this.porId(id));
     }
 
